@@ -9,10 +9,14 @@ import pymongo
 from pymongo import MongoClient
 import os, json
 
+client = MongoClient(os.environ.get('mongo'))
+db = client[os.environ.get('database')]
+coll = db[os.environ.get('collection')]
+tokendb = db[os.environ.get('tokendb')]
 
 def index(request):
     request.COOKIES['key'] = str(uuid.uuid1())
-    response = render(request,"shortner/index.html")
+    response = render(request,"shortner/index.html")  #dynamic data onto your HTML template
     response.set_cookie('key', str(uuid.uuid1()))
     return response
 
@@ -51,7 +55,7 @@ def mailing(request):
         mail = request.POST['mail']                  #requesting data entered by user
         user = request.COOKIES.get('key')
         details = coll.find_one({"uid": user})
-        details = parse_json(details)
+        details = json.loads(details)
         mssg = f"Hey,\nThanks for using <name of your domain>.\nThe new url for {details['link']} is:\n{details['new']}.\nRegards,\n<your name>\n<your contact details>"
         surl = details['new']
         try:
@@ -64,7 +68,8 @@ def mailing(request):
 def openurl(request, uid):  
     if uid != "": 
         details = coll.find_one({"new": "<name of your domain>"+uid})
-        details = parse_json(details)
+        if details is not None:
+            details = json.loads(details)
         if details:
             full_url = details['link']
             if full_url.startswith("http"): 

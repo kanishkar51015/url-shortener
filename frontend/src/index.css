@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+@theme {
+    --colour-primary: ;
+    --colour-light-100: ;
+    --colour-light-200: ;
+    
+    --colour-grey-100: ;
+    --colour-dark-100: ;
+
+    --breakpoint-sx: 480px;
+
+    --background-image-hero-pattern: ;
+}
+
+.bg-custom-hero{
+    background-image: url('./assets/hero_bg.avif');
+    background-size: cover;
+    background-position: center;
+}
+.bg-custom-hero-overlay{
+    background-color: rgba(0, 6, 25, 0.779);
+    position: absolute;
+    inset: 0;
+    z-index: 0;    
+
+}
+header{
+    position: relative;
+    width: 100%;
+    
+}
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 2rem;
+}
+
