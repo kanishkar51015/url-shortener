@@ -1,1 +1,9 @@
-**/*.enuv
+**/*.env
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Virtual environments
+venv/
+.env/
